@@ -16,7 +16,7 @@
           <div class="table-wrapper">
             <table id="datatable1" class="table display responsive nowrap" style="background:white; ">
               <thead style="color: black ">
-                <tr style="font-size: 12px">
+                <tr style="font-size: 10px">
                   <th class="wd-15p">Id</th>
                   <th class="wd-15p">Customer Name</th>
                   <th class="wd-15p">Address</th>
@@ -26,6 +26,7 @@
                   <th class="wd-15p">Image</th>
                   <th class="wd-15p">Status</th>
                   <th class="wd-15p">Change Status</th>
+                  <th>Print Pdf</th>
                 
                   
                   
@@ -61,6 +62,9 @@
                  <td>
                   <a href="{{ url('on_the_way',$data->id) }}" class="btn btn-primary" style="font-size: 12px">In the way</a>
                   <a href="{{ url('delivered',$data->id) }}" class="btn btn-success" style="font-size: 12px">Delivered</a>
+                 </td>
+                 <td>
+                  <a  class="btn btn-secondary" style="font-size: 10px" href="{{ url('print_pdf',$data->id) }}">print pdf</a>
                  </td>
                 </tr>
                 @endforeach

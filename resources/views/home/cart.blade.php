@@ -94,12 +94,15 @@
 
 
    <div class="car_value">
+     <div >
     <h1>Total Value of Cart is:${{$value}}</h1>
-  
-   <div class="checkout__form">
+    </div>
+     
+   <div class="checkout__form" style="justify-content:center; align-items:center; margin-left:50px">
     <div class="col-lg-6 mt-5 pr-5">
     <h4 class="pl-5">Receiver Address</h4>
   </div>
+  
     <form action="{{ url("confirm_order") }}" method="POST">
       @csrf
         <div class="row">
@@ -127,10 +130,11 @@
                         <div class="checkout__input ml-5">
                             <p>Phone<span>*</span></p>
                             <input type="text" name="phone" class="ml-5" placeholder="inter your phone">
-                            <input type="submit" value="Place Order" class="mt-5 btn btn-primary">
+                            <input type="submit" value="Cash on delivered" class="mt-5 btn btn-primary">
+                            <a class="btn btn-success mt-5" href="{{ url('stripe',$value) }}">Pay using cart</a>
                         </div>
                     </div>
-                   
+                   </div>
                 </div>
               
                
@@ -141,7 +145,7 @@
     </form>
 </div>
 </div>
-
+</div>
     @include('home.info')
     <!-- end info section -->
   

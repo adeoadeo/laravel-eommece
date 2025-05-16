@@ -9,7 +9,7 @@
     </div>
     <!-- Sidebar Navidation Menus--><span class="heading" style="color: white">Main</span>
     <ul class="list-unstyled">
-            <li class="active"><a href="" style="color: white"> <i class="icon-home"></i>Home </a></li>
+            <li class="active"><a href="{{ url('admin/dashboard') }}" style="color: white"> <i class="icon-home"></i>Home </a></li>
             <li><a href="{{ url('view_category') }}" style="color: white"> <i class="icon-grid"></i>Category</a></li>
 
             

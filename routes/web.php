@@ -60,7 +60,18 @@ Route::post('confirm_order', [HomeController::class,'confirm_order'])->middlewar
 Route::get('view_order', [AdminController::class,'view_order'])->Middleware('auth','admin');
 
 Route::get('on_the_way/{id}', [AdminController::class,'on_the_way'])->Middleware('auth','admin');
+
 Route::get('delivered/{id}', [AdminController::class,'delivered'])->Middleware('auth','admin');
+
+Route::get('print_pdf/{id}', [AdminController::class,'print_pdf'])->Middleware('auth','admin');
+
+Route::get('myOrders', [HomeController::class,'myOrders'])->middleware(['auth', 'verified']);
+
+Route::controller(HomeController::class)->group(function(){
+    Route::get('stripe/{value}', 'stripe');
+    Route::post('stripe/{value}', 'stripePost')->name('stripe.post');
+});
+
 
 
 

@@ -36,6 +36,13 @@
         <div class="user_option">
           @if (Route::has('login'))
           @auth
+          <a href="{{ url('myOrders') }}">
+            My Orders
+          </a>
+
+          <a href="{{ url('myCart') }}">
+            <i class="fa fa-shopping-bag" aria-hidden="true">[{{$count}}]</i>
+          </a>
           <form method="POST" action="{{ route('logout') }}">
             @csrf
            <input class="btn btn-success mr-2" type="submit" value="Logout">
@@ -56,9 +63,7 @@
           @endauth
           @endif
           
-          <a href="{{ url('myCart') }}">
-            <i class="fa fa-shopping-bag" aria-hidden="true">[{{$count}}]</i>
-          </a>
+         
           <form class="form-inline ">
             <button class="btn nav_search-btn" type="submit">
               <i class="fa fa-search" aria-hidden="true"></i>

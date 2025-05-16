@@ -1,20 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+use Stripe\Stripe;
+use Stripe\PaymentIntent;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Session;
 
+use Dom\Attr;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use function Laravel\Prompts\form;
 use Illuminate\Support\Facades\Auth;
 
-use function Laravel\Prompts\form;
 
 class HomeController extends Controller
 {
    public function index(){
-    
-     return view('admin.index');
+
+    $user = User::where('userType','user')->get()->count();
+    $product= Product::all()->count();
+    $order = Order::all()->count();
+    $delivered = Order::where('status','delivered')->get()->count();
+     return view('admin.index',compact('user','product','order','delivered'));
    }
 
    public function home(){
@@ -117,7 +127,34 @@ class HomeController extends Controller
     toastr()->closeButton()->addSuccess('product  Order successfully');
     return redirect()->back();
     
+    }
 
-   }
+    public function myOrders(){
 
+      $user = Auth::user()->id;
+      $count = Cart::where('user_id', $user)->get()->count();
+      $order = Order::where('user_id', $user)->get();
+      return view('home.order', compact('count','order'));
+    }
+     
+      public function stripe($value)
+    {
+        return view('home.stripe',compact('value'));
+    }
+   public function stripePost(Request $request,$value)
+    {
+        Stripe::setApiKey(env('STRIPE_SECRET'));
+
+    $paymentIntent = PaymentIntent::create([
+        'amount' => $value, // টাকা (পয়সায়, যেমন ১০ টাকা = ১০০০)
+        'currency' => 'usd',
+        'payment_method_types' => ['card'],
+    ]);
+
+    return response()->json([
+        'success' => true,
+        'payment_intent' => $paymentIntent->toArray()
+    ]);
+    }
+    
   }
